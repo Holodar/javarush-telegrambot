@@ -1,0 +1,6 @@
+#Release Notes
+
+##0.1.0-SNAPSHOT
+
+*added stb telegram bot
+*added SpringBoot skeleton project
