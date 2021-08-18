@@ -8,3 +8,21 @@
 ## 0.2.0 - SNAPSHOT
 
 *implemented Command pattern for handling Telegram Bot commannds
+
+## 0.3.0-SNAPSHOT
+
+*   JRTB-13: added deployment process to the project
+
+
+## Deployment
+Deployment process as easy as possible:
+Required software:
+- terminal for running bash scripts
+- docker
+- docker-compose
+
+to deploy application, switch to needed branch and run bash script:
+
+$ bash start.sh ${bot_username} ${bot_token}
+
+That's all.
