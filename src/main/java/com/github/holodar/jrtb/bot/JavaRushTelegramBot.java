@@ -1,5 +1,7 @@
 package com.github.holodar.jrtb.bot;
 
+import com.github.holodar.jrtb.service.TelegramUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -24,11 +26,6 @@ public class JavaRushTelegramBot extends TelegramLongPollingBot{
 
     private final CommandContainer commandContainer;
 
-    public JavaRushTelegramBot(){
-        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this));
-    }
-
-
     @Override
     public void onUpdateReceived(Update update){
         if(update.hasMessage() && update.getMessage().hasText()) {
@@ -36,9 +33,9 @@ public class JavaRushTelegramBot extends TelegramLongPollingBot{
             if(message.startsWith(COMMAND_PREFIX)){
                 String commandIdentifier = message.split(" ")[0].toLowerCase();
 
-                commandContainer.retriveCommand(commandIdentifier).execute(update);
+                commandContainer.retrieveCommand(commandIdentifier).execute(update);
             }else {
-                commandContainer.retriveCommand(NO.getCommandName()).execute(update);
+                commandContainer.retrieveCommand(NO.getCommandName()).execute(update);
             }
         }
     }
@@ -51,5 +48,10 @@ public class JavaRushTelegramBot extends TelegramLongPollingBot{
     @Override
     public String getBotToken(){
         return token;
+    }
+
+    @Autowired
+    public JavaRushTelegramBot(TelegramUserService telegramUserService) {
+        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService);
     }
 }

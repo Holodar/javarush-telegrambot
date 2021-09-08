@@ -1,6 +1,7 @@
 package com.github.holodar.jrtb.command;
 
 import com.github.holodar.jrtb.service.SendBotMessageService;
+import com.github.holodar.jrtb.service.TelegramUserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,14 +16,15 @@ class CommandContainerTest {
     private CommandContainer commandContainer;
 
     @BeforeEach
-    public void imit(){
+    public void init(){
         SendBotMessageService sendBotMessageService = Mockito.mock(SendBotMessageService.class);
-        commandContainer = new CommandContainer(sendBotMessageService);
+        TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
+        commandContainer = new CommandContainer(sendBotMessageService, telegramUserService);
     }
     @Test
     public void shouldGetAllTheExistingCommands(){
         Arrays.stream(CommandName.values()).forEach(commandName -> {
-            Command command = commandContainer.retriveCommand(commandName.getCommandName());
+            Command command = commandContainer.retrieveCommand(commandName.getCommandName());
             Assertions.assertNotEquals(UnknownCommand.class,command.getClass());
         });
     }
@@ -30,7 +32,7 @@ class CommandContainerTest {
     public void shouldReturnUnknownCommand() {
         String unknownCommand = "/fgjhdfgdfg";
 
-        Command command = commandContainer.retriveCommand(unknownCommand);
+        Command command = commandContainer.retrieveCommand(unknownCommand);
 
         Assertions.assertEquals(UnknownCommand.class,command.getClass());
     }
