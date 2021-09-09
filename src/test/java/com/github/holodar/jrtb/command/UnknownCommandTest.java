@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 
 import static com.github.holodar.jrtb.command.UnknownCommand.UNKNOWN_MESSAGE;
 
-@DisplayName("/fdgd")
+@DisplayName("Unit-level testing for UnknownCommand")
 public class UnknownCommandTest extends  AbstractCommandTest{
     @Override
     String getCommandName(){
