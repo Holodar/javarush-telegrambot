@@ -1,10 +1,13 @@
 package com.github.holodar.jrtb.command;
 
+import com.github.holodar.jrtb.command.annotation.AdminCommand;
 import com.github.holodar.jrtb.javarushclient.JavaRushGroupClient;
 import com.github.holodar.jrtb.service.GroupSubService;
 import com.github.holodar.jrtb.service.SendBotMessageService;
 import com.github.holodar.jrtb.service.TelegramUserService;
 import com.google.common.collect.ImmutableMap;
+
+import java.util.List;
 
 import static com.github.holodar.jrtb.command.CommandName.*;
 
@@ -15,10 +18,15 @@ public class CommandContainer {
 
     private final ImmutableMap<String, Command> commandMap;
     private final Command unknownCommand;
+    private final List<String>admins;
     public GroupSubService groupSubService;
     public JavaRushGroupClient javaRushGroupClient;
 
-    public CommandContainer(SendBotMessageService sendBotMessageService, TelegramUserService telegramUserService) {
+    public CommandContainer(SendBotMessageService sendBotMessageService, TelegramUserService telegramUserService,
+                            JavaRushGroupClient javaRushGroupClient, GroupSubService groupSubService,
+                            List<String>admins) {
+
+            this.admins = admins;
 
         commandMap = ImmutableMap.<String, Command>builder()
                 .put(START.getCommandName(), new StartCommand(sendBotMessageService, telegramUserService))
@@ -30,12 +38,25 @@ public class CommandContainer {
                 .put(LIST_GROUP_SUB.getCommandName(), new ListGroupSubCommand(sendBotMessageService, telegramUserService))
                 .put(DELETE_GROUP_SUB.getCommandName(),
                         new DeleteGroupSubCommand(sendBotMessageService, groupSubService, telegramUserService))
+                .put(ADMIN_HELP.getCommandName(), new AdminHelpCommand(sendBotMessageService))
                 .build();
 
         unknownCommand = new UnknownCommand(sendBotMessageService);
     }
 
-    public Command retrieveCommand(String commandIdentifier) {
-        return commandMap.getOrDefault(commandIdentifier, unknownCommand);
+    public Command retrieveCommand(String commandIdentifier, String username) {
+        Command orDefault = commandMap.getOrDefault(commandIdentifier, unknownCommand);
+        if (isAdminCommand(orDefault)) {
+            if (admins.contains(username)) {
+                return orDefault;
+            } else {
+                return unknownCommand;
+            }
+        }
+        return orDefault;
+    }
+
+    private boolean isAdminCommand(Command command) {
+        return nonNull(command.getClass().getAnnotation(AdminCommand.class));
     }
 }

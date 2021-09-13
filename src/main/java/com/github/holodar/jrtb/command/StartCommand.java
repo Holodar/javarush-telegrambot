@@ -1,5 +1,6 @@
 package com.github.holodar.jrtb.command;
 
+import com.github.holodar.jrtb.command.annotation.AdminCommand;
 import com.github.holodar.jrtb.repository.entity.TelegramUser;
 import com.github.holodar.jrtb.service.SendBotMessageService;
 import com.github.holodar.jrtb.service.TelegramUserService;
@@ -8,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 /**
  * Start {@link Command}.
  */
+@AdminCommand
 public class StartCommand implements Command {
 
     private final SendBotMessageService sendBotMessageService;
