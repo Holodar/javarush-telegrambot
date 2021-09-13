@@ -1,5 +1,7 @@
 package com.github.holodar.jrtb.bot;
 
+import com.github.holodar.jrtb.javarushclient.JavaRushGroupClient;
+import com.github.holodar.jrtb.service.GroupSubService;
 import com.github.holodar.jrtb.service.TelegramUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.github.holodar.jrtb.command.CommandContainer;
 import com.github.holodar.jrtb.service.SendBotMessageServiceImpl;
 
+import java.util.List;
 import java.util.Locale;
 
 import static com.github.holodar.jrtb.command.CommandName.NO;
@@ -51,7 +54,10 @@ public class JavaRushTelegramBot extends TelegramLongPollingBot{
     }
 
     @Autowired
-    public JavaRushTelegramBot(TelegramUserService telegramUserService) {
-        this.commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService);
+    public JavarushTelegramBot(TelegramUserService telegramUserService, JavaRushGroupClient groupClient, GroupSubService groupSubService,
+                               @Value("#{'${bot.admins}'.split(',')}") List<String> admins) {
+        this.commandContainer =
+                new CommandContainer(new SendBotMessageServiceImpl(this),
+                        telegramUserService, groupClient, groupSubService, admins);
     }
 }

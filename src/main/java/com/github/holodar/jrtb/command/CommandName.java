@@ -8,6 +8,7 @@ public enum CommandName {
     NO(""),
     LIST_GROUP_SUB("/listGroupSub"),
     DELETE_GROUP_SUB("/deleteGroupSub"),
+    ADMIN_HELP("/ahelp"),
     HELP("/help");
 
     private final String commandName;
