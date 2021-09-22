@@ -3,7 +3,7 @@ package com.github.holodar.jrtb.javarushclient;
 import com.github.holodar.jrtb.javarushclient.dto.GroupDiscussionInfo;
 import com.github.holodar.jrtb.javarushclient.dto.GroupInfo;
 import com.github.holodar.jrtb.javarushclient.dto.GroupRequestArgs;
-import com.github.holodar.jrtb.javarushclient.dto.GroupCountRequestArgs;
+import com.github.holodar.jrtb.javarushclient.dto.GroupsCountRequestArgs;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -79,19 +79,19 @@ class JavaRushGroupClientTest {
     @Test
     public void shouldProperlyGetGroupCount() {
         //given
-        GroupCountRequestArgs args = GroupCountRequestArgs.builder().build();
+        GroupsCountRequestArgs args = GroupsCountRequestArgs.builder().build();
 
         //when
         Integer groupCount = groupClient.getGroupCount(args);
 
         //then
-        Assertions.assertEquals(30, groupCount);
+        Assertions.assertEquals(31, groupCount);
     }
 
     @Test
     public void shouldProperlyGetGroupTECHCount() {
         //given
-        GroupCountRequestArgs args = GroupCountRequestArgs.builder()
+        GroupsCountRequestArgs args = GroupsCountRequestArgs.builder()
                 .type(TECH)
                 .build();
 

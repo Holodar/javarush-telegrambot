@@ -3,7 +3,7 @@ package com.github.holodar.jrtb.javarushclient;
 import com.github.holodar.jrtb.javarushclient.dto.GroupDiscussionInfo;
 import com.github.holodar.jrtb.javarushclient.dto.GroupInfo;
 import com.github.holodar.jrtb.javarushclient.dto.GroupRequestArgs;
-import com.github.holodar.jrtb.javarushclient.dto.GroupCountRequestArgs;
+import com.github.holodar.jrtb.javarushclient.dto.GroupsCountRequestArgs;
 
 import java.util.List;
 
@@ -31,10 +31,10 @@ public interface JavaRushGroupClient {
     /**
      * Get count of groups filtered by provided {@link GroupRequestArgs}.
      *
-     * @param countRequestArgs provided {@link GroupCountRequestArgs}.
+     * @param countRequestArgs provided {@link GroupsCountRequestArgs}.
      * @return the count of the groups.
      */
-    Integer getGroupCount(GroupCountRequestArgs countRequestArgs);
+    Integer getGroupCount(GroupsCountRequestArgs countRequestArgs);
 
     /**
      * Get {@link GroupDiscussionInfo} by provided ID.

@@ -5,7 +5,7 @@ public enum CommandName {
     STOP ("/stop"),
     STAT("/stat"),
     ADD_GROUP_SUB("/addgroupsub"),
-    NO(""),
+    NO("nocommand"),
     LIST_GROUP_SUB("/listGroupSub"),
     DELETE_GROUP_SUB("/deleteGroupSub"),
     ADMIN_HELP("/ahelp"),
@@ -19,4 +19,6 @@ public enum CommandName {
     public String getCommandName(){
         return commandName;
     }
+
+
 }

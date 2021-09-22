@@ -15,24 +15,25 @@ public class SendBotMessageServiceTest {
     private JavaRushTelegramBot javarushBot;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         javarushBot = Mockito.mock(JavaRushTelegramBot.class);
         sendBotMessageService = new SendBotMessageServiceImpl(javarushBot);
     }
 
     @Test
-    public void shouldProperlySendMessage() throws TelegramApiException{
+    public void shouldProperlySendMessage() throws TelegramApiException {
         //given
-        String chatId = "test_chat_id";
+        Long chatId = 123L;
         String message = "test_message";
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText(message);
-        sendMessage.setChatId(chatId);
+        sendMessage.setChatId(chatId.toString());
         sendMessage.enableHtml(true);
 
         //when
-        sendBotMessageService.sendMessage(chatId,message);
+        sendBotMessageService.sendMessage(chatId, message);
+
         //then
         Mockito.verify(javarushBot).execute(sendMessage);
     }
