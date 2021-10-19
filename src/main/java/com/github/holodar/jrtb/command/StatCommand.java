@@ -4,7 +4,6 @@ import com.github.holodar.jrtb.command.annotation.AdminCommand;
 import com.github.holodar.jrtb.dto.StatisticDTO;
 import com.github.holodar.jrtb.service.SendBotMessageService;
 import com.github.holodar.jrtb.service.StatisticsService;
-import com.github.holodar.jrtb.service.TelegramUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
